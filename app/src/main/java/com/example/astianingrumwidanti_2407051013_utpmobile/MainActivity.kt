@@ -160,7 +160,7 @@ fun AnimeCard(anime: Anime) {
             color = Color.White,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
-            maxLines = 1 // Agar teks tidak kepanjangan
+            maxLines = 1
         )
         Text(
             text = anime.genre,
