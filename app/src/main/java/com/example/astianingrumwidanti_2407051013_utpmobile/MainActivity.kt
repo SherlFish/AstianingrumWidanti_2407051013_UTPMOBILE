@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -39,7 +38,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AstianingrumWidanti_2407051013_UTPMOBILETheme {
-                // Background layar utama diatur jadi gelap (hitam) agar mirip di video
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     containerColor = Color(0xFF121212)
@@ -53,10 +51,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TamanimeScreen(modifier: Modifier = Modifier) {
-    // Memanggil data dummy dari AnimeSource
     val animeList = AnimeSource.dummyAnime
 
-    // Wadah utama yang bisa di-scroll vertikal (Modul 6)
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -64,7 +60,6 @@ fun TamanimeScreen(modifier: Modifier = Modifier) {
         contentPadding = PaddingValues(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        // 1. Bagian Header Judul Aplikasi (Modul 4 & 7)
         item {
             Text(
                 text = "TAMANIME",
@@ -75,34 +70,24 @@ fun TamanimeScreen(modifier: Modifier = Modifier) {
             )
         }
 
-        // 2. Bagian Featured Banner (Gambar Paling Besar di Atas)
         item {
-            FeaturedAnime(anime = animeList[1]) // Mengambil Frieren sebagai contoh banner besar
+            FeaturedAnime(anime = animeList[1])
         }
-
-        // 3. Kategori 1 (LazyRow)
         item {
             AnimeCategoryRow(title = "Lanjutkan Menonton", animes = animeList)
         }
-
-        // 4. Kategori 2 (LazyRow) - menggunakan .shuffled() agar urutannya beda-beda
         item {
             AnimeCategoryRow(title = "Aksi Penuh Adrenalin", animes = animeList.shuffled())
         }
-
-        // 5. Kategori 3 (LazyRow)
         item {
             AnimeCategoryRow(title = "Top 10 Hari Ini", animes = animeList.shuffled())
         }
-
-        // 6. Kategori 4 (LazyRow)
         item {
             AnimeCategoryRow(title = "Drama Penguras Air Mata", animes = animeList.shuffled())
         }
     }
 }
 
-// Komponen Card untuk Banner Besar di Atas
 @Composable
 fun FeaturedAnime(anime: Anime) {
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -115,7 +100,7 @@ fun FeaturedAnime(anime: Anime) {
             Image(
                 painter = painterResource(id = anime.imageResourceId),
                 contentDescription = anime.judul,
-                contentScale = ContentScale.Crop, // Agar gambar memenuhi kotak
+                contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -133,8 +118,6 @@ fun FeaturedAnime(anime: Anime) {
         )
     }
 }
-
-// Komponen untuk membuat baris Horizontal (LazyRow) beserta Judul Kategorinya
 @Composable
 fun AnimeCategoryRow(title: String, animes: List<Anime>) {
     Column {
@@ -145,7 +128,6 @@ fun AnimeCategoryRow(title: String, animes: List<Anime>) {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 12.dp)
         )
-        // Menampilkan data menyamping
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -155,8 +137,6 @@ fun AnimeCategoryRow(title: String, animes: List<Anime>) {
         }
     }
 }
-
-// Komponen Card Kecil untuk masing-masing Anime di dalam LazyRow
 @Composable
 fun AnimeCard(anime: Anime) {
     Column(modifier = Modifier.width(120.dp)) {
@@ -179,7 +159,7 @@ fun AnimeCard(anime: Anime) {
             color = Color.White,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
-            maxLines = 1 // Agar teks tidak kepanjangan
+            maxLines = 1
         )
         Text(
             text = anime.genre,
@@ -194,7 +174,6 @@ fun AnimeCard(anime: Anime) {
 @Composable
 fun TamanimePreview() {
     AstianingrumWidanti_2407051013_UTPMOBILETheme {
-        // Preview dengan background gelap
         Scaffold(containerColor = Color(0xFF121212)) { padding ->
             TamanimeScreen(modifier = Modifier.padding(padding))
         }
